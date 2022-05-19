@@ -5,7 +5,7 @@ const Bloglist = () => {
 
     
   return (
-    <div>
+    <div className="blogList">
       <Blog />
       <Blog />
       <Blog />

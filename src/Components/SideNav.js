@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 
 const SideNav = () => {
   return (
-    <div>
+    <div className="SideNav">
       <NavLink to=''>Author</NavLink>
       <NavLink to=''>Heavy Metal</NavLink>
       <NavLink to=''>Metalcore</NavLink>

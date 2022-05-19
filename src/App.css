@@ -1,0 +1,34 @@
+* {
+  max-width: 1020px;
+}
+
+.App {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 40vw;
+}
+.headerContainer {
+}
+.main {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+img {
+  object-fit: cover;
+  height: 300px;
+  width: 100vw;
+}
+
+.SideNav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 15%;
+}
+
+.blogList {
+  width: 85%;
+}

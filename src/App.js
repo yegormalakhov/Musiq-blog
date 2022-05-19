@@ -5,8 +5,23 @@ import Header from "./Components/Header";
 import Footer from "./Components/Footer";
 import Bloglist from "./Components/Bloglist";
 import SideNav from "./Components/SideNav";
+import client from "./contentful/client";
 
 function App() {
+  useEffect(() => {
+    // const fetchUrl =
+    //   "https://cdn.contentful.com/spaces/rdotlj70q82v/entries?access_token=-gebTgQFHZVfe_gIe1Cl1NCWGPpYQ7e9oNJJ6QvxWnM";
+    // fetch(fetchUrl)
+    //   .then((response) => response.json())
+    //   .then((data) => console.log(data));
+
+    // client.getEntries (of a specific content type) ==> At the top level (where you display cards)
+    // client.getEntry (with a specific id) ==> inside the article component itself (you would get the id from the url params)
+
+    // client.getEntries().then((entries) => console.log(entries));
+    // client.getEntry("1BBz5wj12LOf1chSqLF9Ut").then(entry => console.log(entry))
+  }, []);
+
   return (
     <div className="App">
       <Header />

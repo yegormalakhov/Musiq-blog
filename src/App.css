@@ -1,15 +1,24 @@
 * {
-  max-width: 1020px;
+  /* max-width: 1020px; */
 }
 
+a {
+}
+a:visited {
+  text-decoration: none;
+  color: #000;
+}
+a:link {
+  text-decoration: none;
+}
 .App {
   display: flex;
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  /* margin-left: 40vw;     */
 }
 .headerContainer {
+  /* width: 100%; */
 }
 .main {
   width: 100%;
@@ -18,15 +27,15 @@
 }
 img {
   object-fit: cover;
-  height: 300px;
-  width: 100vw;
+  height: 350px;
+  width: 100%;
 }
 
 .SideNav {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 15%;
+  text-decoration: none;
 }
 
 .blogList {

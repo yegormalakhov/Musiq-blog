@@ -32,3 +32,9 @@ img {
 .blogList {
   width: 85%;
 }
+
+.footer {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}

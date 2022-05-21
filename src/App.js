@@ -6,6 +6,7 @@ import Footer from "./Components/Footer";
 import Bloglist from "./Components/Bloglist";
 import SideNav from "./Components/SideNav";
 import client from "./contentful/client";
+import Blog from "./Components/Blog";
 
 function App() {
   const [allBlogs, setAllBlogs] = useState();
@@ -37,18 +38,13 @@ function App() {
   return (
     <div className="App">
       <Header />
-      <Routes>
-        <Route path="/" element={<Bloglist data={allBlogs} />} />
-        {/* <Route path="*" element={""} /> */}
-        <Route path="author" element={""} />
-        <Route path=":musicStyle" />
-        <Route path=":blogId" />
-      </Routes>
       <div className="main">
         <SideNav />
-        {/* <Bloglist /> */}
+        <Routes>
+          <Route path="/" element={<Bloglist data={allBlogs} />} />
+          <Route path=":blogId" element={<Blog data={allBlogs} />} />
+        </Routes>
       </div>
-
       <Footer />
     </div>
   );

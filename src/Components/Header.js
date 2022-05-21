@@ -3,7 +3,7 @@ const Header = () => {
   return (
     <div className="headerContainer">
       {/* <div className="hero"></div>; */}
-      <img src={hero} />
+      <img src={hero} alt='hero image'/>
     </div>
   );
 };

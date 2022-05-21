@@ -7,12 +7,10 @@ import Bloglist from "./Components/Bloglist";
 import SideNav from "./Components/SideNav";
 import client from "./contentful/client";
 import Blog from "./Components/Blog";
+import Author from "./Components/Author";
 
 function App() {
   const [allBlogs, setAllBlogs] = useState();
-
-  // const { REACT_APP_CONTENFUL_SPACE_ID, REACT_APP_CONTENFUL_ACCESSTOCKEN_ID } =
-  //   process.env;
 
   useEffect(() => {
     // const fetchUrl =
@@ -30,7 +28,7 @@ function App() {
 
     // client.getEntry("1BBz5wj12LOf1chSqLF9Ut").then(entry => console.log(entry))
   }, []);
-  // console.log(allBlogs);
+  console.log(allBlogs);
   if (!allBlogs) {
     return <h1>Loading...</h1>;
   }
@@ -43,6 +41,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Bloglist data={allBlogs} />} />
           <Route path=":blogId" element={<Blog data={allBlogs} />} />
+          {/* <Route path=":author" element={<Author data={allBlogs} />} /> */}
         </Routes>
       </div>
       <Footer />

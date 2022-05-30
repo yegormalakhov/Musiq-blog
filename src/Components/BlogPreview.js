@@ -5,7 +5,9 @@ import Typography from "@mui/material/Typography";
 const BlogPreview = ({ title, author, description, summary }) => {
   return (
     <div>
-      <Typography variant="h4">{title}</Typography>
+      <Typography variant="h4" gutterBottom>
+        {title}
+      </Typography>
       <Typography variant="overline">
         {author.fields.name}, posted on date
       </Typography>

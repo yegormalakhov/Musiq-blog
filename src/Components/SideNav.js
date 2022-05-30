@@ -10,6 +10,11 @@ const SideNav = () => {
       <MenuList>
         <MenuItem>
           <NavLink to="">
+            <Typography variant="button">All News</Typography>
+          </NavLink>
+        </MenuItem>
+        <MenuItem>
+          <NavLink to="">
             <Typography variant="button">Heavy Metal</Typography>
           </NavLink>
         </MenuItem>

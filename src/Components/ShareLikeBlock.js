@@ -2,15 +2,30 @@ import React from "react";
 import { useState } from "react";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
-import { Container, IconButton, Button } from "@mui/material";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
+import ThumbUpIcon from "@mui/icons-material/ThumbUp";
+import {
+  Container,
+  IconButton,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Avatar,
+  Stack,
+} from "@mui/material";
+import facebookIcon from "../media/facebook-3.svg";
+import gmailIcon from "../media/gmail-icon.svg";
+import igIcon from "../media/instagram-2-1.svg";
+import whatsupIcon from "../media/whatsapp-icon.svg";
 
 export default function ShareLikeBlock() {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [liked, setLike] = useState(false);
+
+  const handleLike = () => {
+    setLike(!liked);
+  };
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -33,9 +48,14 @@ export default function ShareLikeBlock() {
             {"Share this article with your friends!"}
           </DialogTitle>
           <DialogContent>
-            <DialogContentText id="alert-dialog-description">
-              Here should be social media icons with href to websides.
-            </DialogContentText>
+            <Stack direction="row" spacing={4}>
+              <Avatar alt="Remy Sharp" src={facebookIcon} />
+              <Avatar alt="Remy Sharp" src={gmailIcon} />
+              <Avatar alt="Remy Sharp" src={igIcon} />
+              <Avatar alt="Remy Sharp" src={whatsupIcon} />
+              {/* <Avatar alt="Travis Howard" src="/static/images/avatar/2.jpg" />
+              <Avatar alt="Cindy Baker" src="/static/images/avatar/3.jpg" /> */}
+            </Stack>
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose}>close</Button>
@@ -47,8 +67,12 @@ export default function ShareLikeBlock() {
         <IconButton area-lable="share button" onClick={handleClickOpen}>
           <ShareOutlinedIcon color="primary" sx={{ mr: 1 }} />
         </IconButton>
-        <IconButton area-lable="like button">
-          <ThumbUpOutlinedIcon color="primary" />
+        <IconButton area-lable="like button" onClick={handleLike}>
+          {liked ? (
+            <ThumbUpIcon color="primary" />
+          ) : (
+            <ThumbUpOutlinedIcon color="primary" />
+          )}
         </IconButton>
       </div>
     </>

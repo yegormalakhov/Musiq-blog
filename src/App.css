@@ -1,40 +1,76 @@
 * {
-  max-width: 1020px;
+  /* max-width: 1020px; */
+  /* background-color: #1a1127; */
 }
 
+html {
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  background-color: #170f23;
+  padding: 0;
+  margin: 0;
+  border: none;
+}
+a:visited {
+  text-decoration: none;
+  color: #000;
+}
+a:link {
+  text-decoration: none;
+}
 .App {
   display: flex;
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  /* margin-left: 40vw;     */
 }
 .headerContainer {
+  /* width: 100%; */
+  background-color: rgb(206, 201, 201);
 }
 .main {
   width: 100%;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  background-color: rgb(206, 201, 201);
 }
 img {
   object-fit: cover;
-  height: 300px;
-  width: 100vw;
+  height: 350px;
+  width: 100%;
 }
 
 .SideNav {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 15%;
+  text-decoration: none;
+  margin-top: 3rem;
 }
 
 .blogList {
-  width: 85%;
+  justify-content: center;
+  width: 100%;
 }
 
-.footer {
+.blog {
+  padding: 30px;
+  margin: 20px;
+  background-color:#eceef1;
+}
+
+#footerContainer {
   width: 100%;
+  height: 100px;
   display: flex;
+  flex-direction: row;
   justify-content: space-around;
+  align-items: center;
+  color: white;
+  background-color: #484848;
+}
+
+.footerLink:visited {
+  color: white;
 }

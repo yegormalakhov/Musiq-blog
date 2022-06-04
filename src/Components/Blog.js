@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import GoBack from "./GoBack";
+import { Typography, Paper } from "@mui/material";
 
 const Blog = (data) => {
   const { blogId } = useParams();
@@ -12,10 +13,16 @@ const Blog = (data) => {
   console.log(targetedBlog.fields);
   return (
     <div>
-      <h2>{targetedBlog.fields.title}</h2>
-      <h6>{targetedBlog.fields.author.fields.name}, posted on date</h6>
-      <div>{documentToReactComponents(targetedBlog.fields.description)}</div>
-      <GoBack />
+      <Paper className="blog" elevation={2}>
+        <Typography variant="h3">{targetedBlog.fields.title}</Typography>
+        <Typography variant="overline">
+          {targetedBlog.fields.author.fields.name}, posted on date
+        </Typography>
+        <Typography variant="body1">
+          {documentToReactComponents(targetedBlog.fields.description)}
+        </Typography>
+        <GoBack />
+      </Paper>
     </div>
   );
 };

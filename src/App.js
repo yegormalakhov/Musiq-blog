@@ -7,8 +7,7 @@ import Bloglist from "./Components/Bloglist";
 import SideNav from "./Components/SideNav";
 import client from "./contentful/client";
 import Blog from "./Components/Blog";
-import Author from "./Components/Author";
-
+import { Container, Box, Grid, Paper } from "@mui/material";
 function App() {
   const [allBlogs, setAllBlogs] = useState();
 
@@ -34,17 +33,39 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <Header />
-      <div className="main">
-        <SideNav />
-        <Routes>
-          <Route path="/" element={<Bloglist data={allBlogs} />} />
-          <Route path=":blogId" element={<Blog data={allBlogs} />} />
-          {/* <Route path=":author" element={<Author data={allBlogs} />} /> */}
-        </Routes>
-      </div>
-      <Footer />
+    <div className="container">
+      <Container
+        className="App"
+        style={{ width: "100%" }}
+        justify="center"
+        elevate={2}
+      >
+        <Paper elevation={2}>
+          <Grid container>
+            <Grid item xs={12}>
+              <Box className="headerContainer">
+                <Header />
+              </Box>
+            </Grid>
+          </Grid>
+
+          <div className="main">
+            <Grid container spacing={2}>
+              <Grid item xs={2}>
+                <SideNav />
+              </Grid>
+              <Grid item xs={10}>
+                <Routes>
+                  <Route path="/" element={<Bloglist data={allBlogs} />} />
+                  <Route path=":blogId" element={<Blog data={allBlogs} />} />
+                  {/* <Route path=":author" element={<Author data={allBlogs} />} /> */}
+                </Routes>
+              </Grid>
+            </Grid>
+          </div>
+          <Footer />
+        </Paper>
+      </Container>
     </div>
   );
 }

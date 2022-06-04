@@ -3,8 +3,9 @@ import { Link } from "react-router-dom";
 import Typography from "@mui/material/Typography";
 import { Paper, Button } from "@mui/material";
 
-const BlogPreview = ({ title, author, description, summary }) => {
+const BlogPreview = ({ title, author, description, summary, postDate }) => {
   console.log(author.sys.id);
+  
   return (
     <div>
       <Typography variant="h4">{title}</Typography>
@@ -17,7 +18,7 @@ const BlogPreview = ({ title, author, description, summary }) => {
         >
           {author.fields.name}
         </Button>
-        , posted on date
+        , {postDate}
       </Typography>
       <Typography variant="body1">
         {documentToReactComponents(summary)}

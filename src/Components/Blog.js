@@ -10,7 +10,7 @@ const Blog = (data) => {
     return blog.sys.id === blogId;
   });
 
-  // console.log(targetedBlog.fields.author);
+  console.log(targetedBlog.fields.postDate);
   return (
     <div>
       <Paper className="blog" elevation={2}>
@@ -24,7 +24,7 @@ const Blog = (data) => {
           >
             {targetedBlog.fields.author.fields.name}
           </Button>
-          , posted on date
+          , {targetedBlog.fields.postDate}
         </Typography>
         <Typography variant="body1">
           {documentToReactComponents(targetedBlog.fields.description)}

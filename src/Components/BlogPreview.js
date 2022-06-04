@@ -7,9 +7,7 @@ const BlogPreview = ({ title, author, description, summary }) => {
   console.log(author.sys.id);
   return (
     <div>
-      <Typography variant="h4" gutterBottom>
-        {title}
-      </Typography>
+      <Typography variant="h4">{title}</Typography>
       <Typography variant="overline">
         <Button
           component={Link}

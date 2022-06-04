@@ -10,7 +10,13 @@ const Bloglist = (data) => {
       {blogList.map((blog) => {
         return (
           <div key={blog.sys.id} className="previewCard">
-            <Paper style={{ padding: "30px", margin: "20px", backgroundColor: "#eceef1" }}>
+            <Paper
+              style={{
+                padding: "30px",
+                margin: "20px",
+                backgroundColor: "#eceef1",
+              }}
+            >
               <BlogPreview {...blog.fields} />
               <Button
                 component={Link}
@@ -18,12 +24,10 @@ const Bloglist = (data) => {
                 variant="outlined"
                 color="primary"
               >
-                Read more
+                <Typography>Read more</Typography>
               </Button>
             </Paper>
           </div>
-
-          
         );
       })}
     </div>

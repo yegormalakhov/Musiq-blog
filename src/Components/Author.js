@@ -29,28 +29,30 @@ const Author = () => {
   }
 
   const articlesList = articles.items;
-  console.log(articles.items);
-  console.log(articles);
+  //   console.log(articles.items);
+  //   console.log(articles);
   return (
     <div>
       {articlesList.map((article, index) => (
-        <Paper
-          style={{
-            padding: "30px",
-            margin: "20px",
-            backgroundColor: "#eceef1",
-          }}
-        >
-          <BlogPreview {...article.fields} key={index} />
-          <Button
-            component={Link}
-            to={`../${article.sys.id}`}
-            variant="outlined"
-            color="primary"
+        <div key={index}>
+          <Paper
+            style={{
+              padding: "30px",
+              margin: "20px",
+              backgroundColor: "#eceef1",
+            }}
           >
-            Read more
-          </Button>
-        </Paper>
+            <BlogPreview {...article.fields} />
+            <Button
+              component={Link}
+              to={`../${article.sys.id}`}
+              variant="outlined"
+              color="primary"
+            >
+              Read more
+            </Button>
+          </Paper>
+        </div>
       ))}
     </div>
   );

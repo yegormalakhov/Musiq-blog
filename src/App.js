@@ -9,6 +9,7 @@ import client from "./contentful/client";
 import Blog from "./Components/Blog";
 import Author from "./Components/Author";
 import { Container, Box, Grid, Paper } from "@mui/material";
+
 function App() {
   const [allBlogs, setAllBlogs] = useState();
 
@@ -28,7 +29,9 @@ function App() {
 
     // client.getEntry("1BBz5wj12LOf1chSqLF9Ut").then(entry => console.log(entry))
   }, []);
-  // console.log(allBlogs);
+
+  console.log(allBlogs);
+
   if (!allBlogs) {
     return <h1>Loading...</h1>;
   }
@@ -52,10 +55,10 @@ function App() {
 
           <div className="main">
             <Grid container spacing={2}>
-              <Grid item xs={2}>
+              <Grid item xs={12} sm={12} lg={2}>
                 <SideNav />
               </Grid>
-              <Grid item xs={10}>
+              <Grid item xs={12} sm={12} lg={10}>
                 <Routes>
                   <Route path="/" element={<Bloglist data={allBlogs} />} />
                   <Route path=":blogId" element={<Blog data={allBlogs} />} />

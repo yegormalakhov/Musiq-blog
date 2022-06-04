@@ -1,7 +1,7 @@
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import GoBack from "./GoBack";
-import { Typography, Paper } from "@mui/material";
+import { Typography, Paper, Button } from "@mui/material";
 
 const Blog = (data) => {
   const { blogId } = useParams();
@@ -10,13 +10,21 @@ const Blog = (data) => {
     return blog.sys.id === blogId;
   });
 
-  console.log(targetedBlog.fields);
+  // console.log(targetedBlog.fields.author);
   return (
     <div>
       <Paper className="blog" elevation={2}>
         <Typography variant="h3">{targetedBlog.fields.title}</Typography>
         <Typography variant="overline">
-          {targetedBlog.fields.author.fields.name}, posted on date
+          <Button
+            component={Link}
+            to={`/author/${targetedBlog.fields.author.sys.id}`}
+            variant="text"
+            color="secondary"
+          >
+            {targetedBlog.fields.author.fields.name}
+          </Button>
+          , posted on date
         </Typography>
         <Typography variant="body1">
           {documentToReactComponents(targetedBlog.fields.description)}

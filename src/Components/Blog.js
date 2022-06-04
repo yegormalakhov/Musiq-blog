@@ -3,6 +3,7 @@ import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
 import GoBack from "./GoBack";
 import { Typography, Paper, Grid, Box, Button } from "@mui/material";
 import ShareLikeBlock from "./ShareLikeBlock.js";
+import DatePosted from "./DatePosted";
 
 const Blog = (data) => {
   const { blogId } = useParams();
@@ -25,7 +26,7 @@ const Blog = (data) => {
           >
             {targetedBlog.fields.author.fields.name}
           </Button>
-          , {targetedBlog.fields.postDate}
+          , <DatePosted date={targetedBlog.fields.postDate} />
         </Typography>
         <Typography variant="body1">
           {documentToReactComponents(targetedBlog.fields.description)}

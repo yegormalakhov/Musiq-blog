@@ -5,7 +5,6 @@ import Typography from "@mui/material/Typography";
 
 const Bloglist = (data) => {
   const blogList = data.data;
-  // console.log(blogList);
   return (
     <div className="blogList">
       {blogList.map((blog) => {

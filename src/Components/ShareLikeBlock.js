@@ -4,7 +4,6 @@ import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import {
-  Container,
   IconButton,
   Button,
   Dialog,
@@ -53,8 +52,6 @@ export default function ShareLikeBlock() {
               <Avatar alt="Remy Sharp" src={gmailIcon} />
               <Avatar alt="Remy Sharp" src={igIcon} />
               <Avatar alt="Remy Sharp" src={whatsupIcon} />
-              {/* <Avatar alt="Travis Howard" src="/static/images/avatar/2.jpg" />
-              <Avatar alt="Cindy Baker" src="/static/images/avatar/3.jpg" /> */}
             </Stack>
           </DialogContent>
           <DialogActions>

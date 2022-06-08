@@ -1,4 +1,3 @@
-import React from "react";
 import { parseISO, formatDistance } from "date-fns";
 
 const DatePosted = ({ date }) => {
@@ -11,8 +10,3 @@ const DatePosted = ({ date }) => {
   return diff;
 };
 export default DatePosted;
-//   return (
-//     <div>
-
-//     </div>
-//   )

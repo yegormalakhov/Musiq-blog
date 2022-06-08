@@ -12,22 +12,21 @@ const Blog = (data) => {
     return blog.sys.id === blogId;
   });
 
-  // console.log(targetedBlog.fields);
   return (
     <div>
       <Paper className="blog" elevation={2}>
         <Typography variant="h3">{targetedBlog.fields.title}</Typography>
-        <Typography variant="overline">
-          <Button
-            component={Link}
-            to={`/author/${targetedBlog.fields.author.sys.id}`}
-            variant="text"
-            color="secondary"
-          >
+        <Button
+          component={Link}
+          to={`/author/${targetedBlog.fields.author.sys.id}`}
+          variant="text"
+          color="secondary"
+        >
+          <Typography variant="overline">
             {targetedBlog.fields.author.fields.name}
-          </Button>
-          , <DatePosted date={targetedBlog.fields.postDate} />
-        </Typography>
+          </Typography>
+        </Button>
+        , <DatePosted date={targetedBlog.fields.postDate} />
         <Typography variant="body1">
           {documentToReactComponents(targetedBlog.fields.description)}
         </Typography>

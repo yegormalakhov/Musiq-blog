@@ -8,6 +8,7 @@ import SideNav from "./Components/SideNav";
 import client from "./contentful/client";
 import Blog from "./Components/Blog";
 import Author from "./Components/Author";
+import Topnav from "./Components/Topnav";
 import { Container, Box, Grid, Paper } from "@mui/material";
 
 function App() {
@@ -44,6 +45,7 @@ function App() {
         justify="center"
         elevate={2}
       >
+        <Topnav />
         <Paper elevation={2}>
           <Grid container>
             <Grid item xs={12}>

@@ -44,10 +44,17 @@ img {
 
 .blogImg {
   max-height: 80vh;
-  height: 70vh;
-  width: auto;
+  height: auto;
+  width: 90%;
   position: center;
 }
+.blogImgPreview {
+  max-height: 150px;
+  margin-top: 10px;
+  height: auto;
+  width: 100%;
+}
+
 .SideNav {
   display: flex;
   flex-direction: column;

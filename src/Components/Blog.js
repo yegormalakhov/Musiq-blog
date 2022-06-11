@@ -50,9 +50,12 @@ const Blog = (data) => {
         <span>posted  </span>
          <DatePosted date={targetedBlog.fields.postDate} />
          <Container align='center'>
-            <Box>
-              <img className="blogImg" src={imageSeen} />
-            </Box>
+            <Box 
+            component="img"
+            className="RockLogo blogImg"
+            alt="Logo"
+            src={imageSeen}
+          />
           </Container>
          
         <Typography variant="body1">

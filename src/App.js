@@ -54,20 +54,12 @@ function App() {
               </Box>
             </Grid>
           </Grid>
-
           <div className="main">
-            <Grid container spacing={2}>
-              <Grid item xs={12} sm={12} lg={2}>
-                <SideNav />
-              </Grid>
-              <Grid item xs={12} sm={12} lg={10}>
                 <Routes>
                   <Route path="/" element={<Bloglist data={allBlogs} />} />
                   <Route path=":blogId" element={<Blog data={allBlogs} />} />
                   <Route path="/author/:authorId" element={<Author />} />
                 </Routes>
-              </Grid>
-            </Grid>
           </div>
           <Footer />
         </Paper>

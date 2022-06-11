@@ -6,7 +6,7 @@ import { Button } from "@mui/material";
 import DatePosted from "./DatePosted";
 
 const BlogPreview = ({ title, author, summary, postDate }) => {
-  console.log(postDate);
+  // console.log(postDate);
 
   // const formatDate = (postDate) => {
   //   const convertedTimeFromIso = parseISO(postDate, {
@@ -27,12 +27,12 @@ const BlogPreview = ({ title, author, summary, postDate }) => {
         variant="text"
         color="secondary"
       >
-        <Typography variant="overline">{author.fields.name}</Typography>
-      </Button>
-      , posted
+        <Typography variant="overline">{author.fields.name}, </Typography>
+      </Button>      
+      <span>posted  </span>
       {/* {formatDate(postDate)}  */}
       <DatePosted date={postDate} />
-      <Typography variant="body1">
+      <Typography variant="body1"> 
         {documentToReactComponents(summary)}
       </Typography>
     </div>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -14,16 +14,9 @@ import SearchIcon from "@mui/icons-material/Search";
 import InputBase from "@mui/material/InputBase";
 import { styled, alpha } from "@mui/material/styles";
 import rockicon from "../media/rock.svg";
-import { NavLink } from "react-router-dom";
-
-const pages = [
-  "All News",
-  "Heavy Metal",
-  "Metalcore",
-  "Prog",
-  "Rock",
-  "Electronic",
-];
+import { NavLink, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import client from "../contentful/client"
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -70,6 +63,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 export default function Topnav() {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
+  const [pages, setPages] = useState();
+
+  let navigate = useNavigate();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -86,6 +82,21 @@ export default function Topnav() {
     setAnchorElUser(null);
   };
 
+  const handleTopNavMenu = (event, page) => {
+    handleCloseNavMenu();
+    const style = event.target.textContent;
+    navigate(`/style/${page.sys.id}`)
+  }
+
+  const goHome =()=>{
+    navigate('/')
+  }
+  useEffect(() => {
+    client.getTags().then(tags => setPages(tags.items))
+  }, [])
+
+  if (!pages) return null;
+  
   return (
     <nav>
       <AppBar position="static" color="transparent">
@@ -101,7 +112,9 @@ export default function Topnav() {
                 height: "auto",
                 filter: "invert(1)",
                 display: { xs: "none", md: "flex" },
+                
               }}
+              onClick={goHome}
             />
             <Box
               sx={{
@@ -138,9 +151,9 @@ export default function Topnav() {
                 }}
               >
                 {pages.map((page) => (
-                  <MenuItem key={page} onClick={handleCloseNavMenu}>
-                    <NavLink to=''>
-                      <Typography textAlign="center">{page}</Typography>
+                  <MenuItem key={page.name} onClick={handleCloseNavMenu}>
+                    <NavLink to={`/style/${page.sys.id}`}>
+                      <Typography textAlign="center">{page.name}</Typography>
                     </NavLink>
                   </MenuItem>
                 ))}
@@ -159,15 +172,18 @@ export default function Topnav() {
                 filter: "invert(1)",
                 display: { xs: "flex", md: "none" },
               }}
+              onClick={goHome}
             />
             <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-              {pages.map((page) => (
+              {pages.map((page, index) => (
                 <Button
-                  key={page}
-                  onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: "white", display: "block" }}
+                key={page.name}
+                onClick={(event) => handleTopNavMenu(event, page)}
+                // onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: "white", display: "block" }}
+                className='topnavLinks'
                 >
-                  {page}
+                  {page.name}
                 </Button>
               ))}
             </Box>

@@ -9,6 +9,7 @@ import client from "./contentful/client";
 import Blog from "./Components/Blog";
 import Author from "./Components/Author";
 import Topnav from "./Components/Topnav";
+import Genre from "./Components/Genre";
 import { Container, Box, Grid, Paper } from "@mui/material";
 
 function App() {
@@ -25,7 +26,10 @@ function App() {
     // client.getEntry (with a specific id) ==> inside the article component itself (you would get the id from the url params)
 
     client
-      .getEntries({ content_type: "article", select: "fields" })
+      .getEntries({ 
+        content_type: "article", 
+        select: "fields",
+      })
       .then((entries) => setAllBlogs(entries.items));
 
     // client.getEntry("1BBz5wj12LOf1chSqLF9Ut").then(entry => console.log(entry))
@@ -45,7 +49,7 @@ function App() {
         justify="center"
         elevate={2}
       >
-        <Topnav />
+        <Topnav data={allBlogs} />
         <Paper elevation={2}>
           <Grid container>
             <Grid item xs={12}>
@@ -59,6 +63,7 @@ function App() {
                   <Route path="/" element={<Bloglist data={allBlogs} />} />
                   <Route path=":blogId" element={<Blog data={allBlogs} />} />
                   <Route path="/author/:authorId" element={<Author />} />
+                  <Route path="/style/:genreId" element={<Genre />} />
                 </Routes>
           </div>
           <Footer />

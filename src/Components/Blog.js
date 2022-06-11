@@ -1,20 +1,41 @@
 import { useParams, Link } from "react-router-dom";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import GoBack from "./GoBack";
-import { Typography, Paper, Grid, Box, Button } from "@mui/material";
+import { Typography, Paper, Grid, Box, Button, Container } from "@mui/material";
 import ShareLikeBlock from "./ShareLikeBlock.js";
 import DatePosted from "./DatePosted";
+
+// client
+// .getAssets()
+// .then(function (assets) {
+//   assets.items.map(function (asset) {
+//     var imageURL = 'https:' + asset.fields.file.url;
+//   });
+// })
+// .catch(function (e) {
+//   console.log(e);
+// });
+
+
 
 const Blog = (data) => {
   const { blogId } = useParams();
   const blogList = data.data;
+
+  
+
   const targetedBlog = blogList.find((blog) => {
     return blog.sys.id === blogId;
   });
 
+  const imageSeen = `http:${targetedBlog.fields.heroImage.fields.file.url}`
+ console.log(targetedBlog.fields.heroImage.fields.file.url);
+
+
   return (
     <div>
       <Paper className="blog" elevation={2}>
+        {/* <img src></img> */}
         <Typography variant="h3">{targetedBlog.fields.title}</Typography>
         <Button
           component={Link}
@@ -23,10 +44,17 @@ const Blog = (data) => {
           color="secondary"
         >
           <Typography variant="overline">
-            {targetedBlog.fields.author.fields.name}
+            {targetedBlog.fields.author.fields.name},
           </Typography>
         </Button>
-        , <DatePosted date={targetedBlog.fields.postDate} />
+        <span>posted  </span>
+         <DatePosted date={targetedBlog.fields.postDate} />
+         <Container align='center'>
+            <Box>
+              <img className="blogImg" src={imageSeen} />
+            </Box>
+          </Container>
+         
         <Typography variant="body1">
           {documentToReactComponents(targetedBlog.fields.description)}
         </Typography>

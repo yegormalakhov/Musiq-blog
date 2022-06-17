@@ -18,6 +18,7 @@ function App() {
   const [itemOffset, setItemOffset] = useState(0);
   const [searchTerm, setSearchTerm] = useState("");
   const [query, setQuery] = useState();
+  const [searchResult, setSearchResult] = useState();
 
   const blogsPerPage = 5;
   useEffect(() => {
@@ -49,20 +50,24 @@ function App() {
     setItemOffset(newOffset);
   };
 
-  // const handleUserInput = (e) => {
-  //   setUserInput(e.target.value);
-  // };
-
-  // const handleSearch = (e) => {
-  //   e.preventDefault();
-  //   setSearchText(userInput);
-  //   setUserInput("");
-  //   console.log(userInput);
-  // };
-
   const onChange = (event) => {
     setSearchTerm(event.target.value);
   };
+
+  function testResult() {
+    // setSearchResult(
+    allBlogs.filter((blog) => {
+      const title = blog.fields.title.toLowerCase();
+      const searchterm = query.toLowerCase();
+      // console.log(title);
+      // console.log(searchterm);
+      return title.includes(searchterm);
+    });
+    // );
+  }
+  if (allBlogs && query) {
+    testResult();
+  }
 
   if (!allBlogs) {
     return <h1>Loading...</h1>;

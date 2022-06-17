@@ -4,17 +4,22 @@ import { Routes, Route } from "react-router-dom";
 import Header from "./Components/Header";
 import Footer from "./Components/Footer";
 import Bloglist from "./Components/Bloglist";
-import SideNav from "./Components/SideNav";
 import client from "./contentful/client";
 import Blog from "./Components/Blog";
 import Author from "./Components/Author";
 import Topnav from "./Components/Topnav";
 import Genre from "./Components/Genre";
-import { Container, Box, Grid, Paper } from "@mui/material";
+import { Container, Box, Grid, Paper, Pagination } from "@mui/material";
+import ReactPaginate from "react-paginate";
 
 function App() {
   const [allBlogs, setAllBlogs] = useState();
+  const [totalPages, setTotalPages] = useState(0);
+  const [itemOffset, setItemOffset] = useState(0);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [query, setQuery] = useState();
 
+  const blogsPerPage = 5;
   useEffect(() => {
     // const fetchUrl =
     //   "https://cdn.contentful.com/spaces/rdotlj70q82v/entries?access_token=-gebTgQFHZVfe_gIe1Cl1NCWGPpYQ7e9oNJJ6QvxWnM";
@@ -24,22 +29,51 @@ function App() {
 
     // client.getEntries (of a specific content type) ==> At the top level (where you display cards)
     // client.getEntry (with a specific id) ==> inside the article component itself (you would get the id from the url params)
+    const endOffset = itemOffset + blogsPerPage;
 
     client
-      .getEntries({ 
-        content_type: "article", 
+      .getEntries({
+        content_type: "article",
         select: "fields",
       })
-      .then((entries) => setAllBlogs(entries.items));
+      .then((entries) => {
+        setAllBlogs(entries.items.slice(itemOffset, endOffset));
+        setTotalPages(Math.ceil(entries.items.length / blogsPerPage));
+      });
 
     // client.getEntry("1BBz5wj12LOf1chSqLF9Ut").then(entry => console.log(entry))
-  }, []);
+  }, [itemOffset, blogsPerPage]);
 
-  console.log(allBlogs);
+  const handleChange = (page) => {
+    const newOffset = page.selected * blogsPerPage;
+    setItemOffset(newOffset);
+  };
+
+  // const handleUserInput = (e) => {
+  //   setUserInput(e.target.value);
+  // };
+
+  // const handleSearch = (e) => {
+  //   e.preventDefault();
+  //   setSearchText(userInput);
+  //   setUserInput("");
+  //   console.log(userInput);
+  // };
+
+  const onChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
 
   if (!allBlogs) {
     return <h1>Loading...</h1>;
   }
+
+  const handleSearch = (event) => {
+    event.preventDefault();
+    setQuery(searchTerm);
+    console.log(searchTerm);
+    setSearchTerm("");
+  };
 
   return (
     <div className="container">
@@ -49,7 +83,12 @@ function App() {
         justify="center"
         elevate={2}
       >
-        <Topnav data={allBlogs} />
+        <Topnav
+          data={allBlogs}
+          handleSearch={handleSearch}
+          searchTerm={searchTerm}
+          onChange={onChange}
+        />
         <Paper elevation={2}>
           <Grid container>
             <Grid item xs={12}>
@@ -59,13 +98,34 @@ function App() {
             </Grid>
           </Grid>
           <div className="main">
-                <Routes>
-                  <Route path="/" element={<Bloglist data={allBlogs} />} />
-                  <Route path=":blogId" element={<Blog data={allBlogs} />} />
-                  <Route path="/author/:authorId" element={<Author />} />
-                  <Route path="/style/:genreId" element={<Genre />} />
-                </Routes>
+            <Routes>
+              <Route path="/" element={<Bloglist data={allBlogs} />} />
+              <Route path=":blogId" element={<Blog data={allBlogs} />} />
+              <Route path="/author/:authorId" element={<Author />} />
+              <Route path="/style/:genreId" element={<Genre />} />
+            </Routes>
+            <ReactPaginate
+              className="pagination"
+              nextLabel="Next >"
+              previousLabel="< Previous"
+              breakLabel="..."
+              onPageChange={handleChange}
+              pageCount={totalPages}
+              pageClassName="page-item"
+              pageLinkClassName="page-link"
+              nextClassName="page-item"
+              previousClassName="page-item"
+              nextLinkClassName="page-link"
+              previousLinkClassName="page-link"
+              breakClassName="page-item"
+              breakLinkClassName="page-link"
+              containerClassName="pagination"
+              activeClassName="active"
+              pageRangeDisplayed={5}
+              marginPagesDisplayed={5}
+            />
           </div>
+
           <Footer />
         </Paper>
       </Container>

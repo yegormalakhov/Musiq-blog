@@ -11,12 +11,11 @@ import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import SearchIcon from "@mui/icons-material/Search";
-import InputBase from "@mui/material/InputBase";
 import { styled, alpha } from "@mui/material/styles";
 import rockicon from "../media/rock.svg";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import client from "../contentful/client"
+import client from "../contentful/client";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -27,40 +26,23 @@ const Search = styled("div")(({ theme }) => ({
   },
   marginLeft: 0,
   width: "100%",
-  [theme.breakpoints.up("sm")]: {
+  [theme.breakpoints.up("xs")]: {
     marginLeft: theme.spacing(1),
     width: "auto",
   },
 }));
 
 const SearchIconWrapper = styled("div")(({ theme }) => ({
-  padding: theme.spacing(0, 2),
+  padding: theme.spacing(0, 16),
   height: "100%",
   position: "absolute",
   pointerEvents: "none",
   display: "flex",
   alignItems: "center",
-  justifyContent: "center",
+  justifyContent: "right",
 }));
 
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: "inherit",
-  "& .MuiInputBase-input": {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create("width"),
-    width: "100%",
-    [theme.breakpoints.up("sm")]: {
-      width: "12ch",
-      "&:focus": {
-        width: "20ch",
-      },
-    },
-  },
-}));
-
-export default function Topnav() {
+export default function Topnav({ onChange, handleSearch, searchTerm }) {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const [pages, setPages] = useState();
@@ -85,18 +67,18 @@ export default function Topnav() {
   const handleTopNavMenu = (event, page) => {
     handleCloseNavMenu();
     const style = event.target.textContent;
-    navigate(`/style/${page.sys.id}`)
-  }
+    navigate(`/style/${page.sys.id}`);
+  };
 
-  const goHome =()=>{
-    navigate('/')
-  }
+  const goHome = () => {
+    navigate("/");
+  };
   useEffect(() => {
-    client.getTags().then(tags => setPages(tags.items))
-  }, [])
+    client.getTags().then((tags) => setPages(tags.items));
+  }, []);
 
   if (!pages) return null;
-  
+
   return (
     <nav>
       <AppBar position="static" color="transparent">
@@ -112,7 +94,6 @@ export default function Topnav() {
                 height: "auto",
                 filter: "invert(1)",
                 display: { xs: "none", md: "flex" },
-                
               }}
               onClick={goHome}
             />
@@ -177,11 +158,11 @@ export default function Topnav() {
             <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
               {pages.map((page, index) => (
                 <Button
-                key={page.name}
-                onClick={(event) => handleTopNavMenu(event, page)}
-                // onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block" }}
-                className='topnavLinks'
+                  key={page.name}
+                  onClick={(event) => handleTopNavMenu(event, page)}
+                  // onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: "white", display: "block" }}
+                  className="topnavLinks"
                 >
                   {page.name}
                 </Button>
@@ -189,12 +170,17 @@ export default function Topnav() {
             </Box>
             <Search>
               <SearchIconWrapper>
-                <SearchIcon />
-              </SearchIconWrapper>
-              <StyledInputBase
-                placeholder="Search…"
-                inputProps={{ "aria-label": "search" }}
-              />
+                  <SearchIcon />
+                </SearchIconWrapper>
+              <form className="Form" onSubmit={handleSearch}>
+                <input
+                  type="text"
+                  placeholder="Search..."
+                  value={searchTerm}
+                  onChange={onChange}
+                />
+              </form>
+
             </Search>
           </Toolbar>
         </Container>

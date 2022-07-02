@@ -4,12 +4,12 @@ import { Routes, Route } from "react-router-dom";
 import Header from "./Components/Header";
 import Footer from "./Components/Footer";
 import Bloglist from "./Components/Bloglist";
-import SideNav from "./Components/SideNav";
 import client from "./contentful/client";
 import Blog from "./Components/Blog";
 import Author from "./Components/Author";
 import Topnav from "./Components/Topnav";
 import Genre from "./Components/Genre";
+import Testwindow from "./Components/Testwindow";
 import { Container, Box, Grid, Paper } from "@mui/material";
 
 function App() {
@@ -26,8 +26,8 @@ function App() {
     // client.getEntry (with a specific id) ==> inside the article component itself (you would get the id from the url params)
 
     client
-      .getEntries({ 
-        content_type: "article", 
+      .getEntries({
+        content_type: "article",
         select: "fields",
       })
       .then((entries) => setAllBlogs(entries.items));
@@ -35,7 +35,7 @@ function App() {
     // client.getEntry("1BBz5wj12LOf1chSqLF9Ut").then(entry => console.log(entry))
   }, []);
 
-  console.log(allBlogs);
+  // console.log(allBlogs);
 
   if (!allBlogs) {
     return <h1>Loading...</h1>;
@@ -59,12 +59,13 @@ function App() {
             </Grid>
           </Grid>
           <div className="main">
-                <Routes>
-                  <Route path="/" element={<Bloglist data={allBlogs} />} />
-                  <Route path=":blogId" element={<Blog data={allBlogs} />} />
-                  <Route path="/author/:authorId" element={<Author />} />
-                  <Route path="/style/:genreId" element={<Genre />} />
-                </Routes>
+            <Routes>
+              <Route path="/" element={<Bloglist />} />
+              <Route path=":blogId" element={<Blog />} />
+              <Route path="/author/:authorId" element={<Author />} />
+              <Route path="/style/:genreId" element={<Genre />} />
+              <Route path="/routes/blogs/time" element={<Testwindow />} />
+            </Routes>
           </div>
           <Footer />
         </Paper>

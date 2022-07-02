@@ -2,28 +2,14 @@ import BlogPreview from "./BlogPreview";
 import { Link } from "react-router-dom";
 import { Paper, Button } from "@mui/material";
 import Typography from "@mui/material/Typography";
-import { useEffect, useState } from "react";
-import serverURL from "../serverURL.js";
 
-const Bloglist = () => {
-  const [blogList, setBlogList] = useState();
-
-  useEffect(() => {
-    fetch(`${serverURL}/routes/blogs`)
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        setBlogList(data);
-      });
-  }, []);
-  if (!blogList) {
-    return <h1>Loading...</h1>;
-  }
+const Bloglist = (data) => {
+  const blogList = data.data;
   return (
     <div className="blogList">
-      {blogList.map((blog, index) => {
+      {blogList.map((blog) => {
         return (
-          <div key={index} className="previewCard">
+          <div key={blog.sys.id} className="previewCard">
             <Paper
               style={{
                 padding: "30px",
@@ -31,10 +17,10 @@ const Bloglist = () => {
                 backgroundColor: "#eceef1",
               }}
             >
-              <BlogPreview id={blog.id} />
+              <BlogPreview {...blog.fields} />
               <Button
                 component={Link}
-                to={`${blog.id}`}
+                to={blog.sys.id}
                 variant="outlined"
                 color="primary"
               >

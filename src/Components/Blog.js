@@ -1,52 +1,66 @@
 import { useParams, Link } from "react-router-dom";
+import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import GoBack from "./GoBack";
 import { Typography, Paper, Grid, Box, Button, Container } from "@mui/material";
 import ShareLikeBlock from "./ShareLikeBlock.js";
 import DatePosted from "./DatePosted";
-import { useEffect, useState } from "react";
-import serverURL from "../serverURL.js";
 
-const Blog = () => {
+// client
+// .getAssets()
+// .then(function (assets) {
+//   assets.items.map(function (asset) {
+//     var imageURL = 'https:' + asset.fields.file.url;
+//   });
+// })
+// .catch(function (e) {
+//   console.log(e);
+// });
 
-  const [blogPost, setBlogPost] = useState();
+
+
+const Blog = (data) => {
   const { blogId } = useParams();
+  const blogList = data.data;
 
-  useEffect(() => {
-    fetch(`${serverURL}/routes/blogs/${blogId}`)
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        setBlogPost(data[0]);
-      });
-  }, []);
+  
 
-  if (!blogPost) {
-    return <h1>Loading...</h1>;
-  }
+  const targetedBlog = blogList.find((blog) => {
+    return blog.sys.id === blogId;
+  });
+
+  const imageSeen = `http:${targetedBlog.fields.heroImage.fields.file.url}`
+ console.log(targetedBlog.fields.heroImage.fields.file.url);
+
 
   return (
     <div>
       <Paper className="blog" elevation={2}>
-        <Typography variant="h3">{blogPost.title}</Typography>
+        {/* <img src></img> */}
+        <Typography variant="h3">{targetedBlog.fields.title}</Typography>
         <Button
           component={Link}
-          to={`/author/${blogPost.author_id}`}
+          to={`/author/${targetedBlog.fields.author.sys.id}`}
           variant="text"
           color="secondary"
         >
-          <Typography variant="overline">{blogPost.name},</Typography>
+          <Typography variant="overline">
+            {targetedBlog.fields.author.fields.name},
+          </Typography>
         </Button>
-        <span>posted </span>
-        <DatePosted date={blogPost.created_at} />
-        <Container align="center">
-          <Box
+        <span>posted  </span>
+         <DatePosted date={targetedBlog.fields.postDate} />
+         <Container align='center'>
+            <Box 
             component="img"
             className="RockLogo blogImg"
             alt="Logo"
-            src={`${serverURL}/images/${blogPost.hero_img}`}
+            src={imageSeen}
           />
-        </Container>
-        <div dangerouslySetInnerHTML={{ __html: blogPost.description }}></div>
+          </Container>
+         
+        <Typography variant="body1">
+          {documentToReactComponents(targetedBlog.fields.description)}
+        </Typography>
         <Box sx={{ mt: 4 }}>
           <Grid container spacing={2}>
             <Grid item sm={10}>

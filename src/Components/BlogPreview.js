@@ -1,48 +1,52 @@
+import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { Link } from "react-router-dom";
-import { Typography, Grid, Box } from "@mui/material";
+import { Typography, Container, Box, Grid } from "@mui/material";
 import { Button } from "@mui/material";
+// import { parseISO, formatDistance } from "date-fns";
 import DatePosted from "./DatePosted";
-import { useEffect, useState } from "react";
-import serverURL from "../serverURL.js";
 
-const BlogPreview = ({ id }) => {
-  const [blogPreview, setBlogPreview] = useState();
-  useEffect(() => {
-    fetch(`${serverURL}/routes/blogs/${id}`)
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        setBlogPreview(data[0]);
-      });
-  }, []);
+const BlogPreview = ({ title, author, summary, postDate, heroImage }) => {
+  // console.log(postDate);
 
-  if (!blogPreview) {
-    return <h1>Loading...</h1>;
-  }
+  // const formatDate = (postDate) => {
+  //   const convertedTimeFromIso = parseISO(postDate, {
+  //     additionalDigits: 1,
+  //   });
+  //   const diff = formatDistance(new Date(convertedTimeFromIso), new Date(), {
+  //     addSuffix: true,
+  //   });
+  //   return diff;
+  // };
 
+  const imageSeen = `http:${heroImage.fields.file.url}`;
   return (
     <div>
-      <Typography variant="h4">{blogPreview.title}</Typography>
+      <Typography variant="h4">{title}</Typography>
       <Grid container spacing={2}>
+        
         <Grid item xs={9}>
           <Button
             component={Link}
-            to={`/author/${blogPreview.author_id}`}
+            to={`/author/${author.sys.id}`}
             variant="text"
             color="secondary"
           >
-            <Typography variant="overline">{blogPreview.name}, </Typography>
+            <Typography variant="overline">{author.fields.name}, </Typography>
           </Button>
           <span>posted </span>
-          <DatePosted date={blogPreview.created_at} />
-          <div dangerouslySetInnerHTML={{ __html: blogPreview.summary }}></div>
+          {/* {formatDate(postDate)}  */}
+          <DatePosted date={postDate} />
+
+          <Typography variant="body1">
+            {documentToReactComponents(summary)}
+          </Typography>
         </Grid>
-        <Grid item xs={3} align="center">
+        <Grid item xs={3} align='center'>
           <Box
             component="img"
             className="RockLogo blogImgPreview"
             alt="Logo"
-            src={`${serverURL}/images/${blogPreview.hero_img}`}
+            src={imageSeen}
           />
         </Grid>
       </Grid>

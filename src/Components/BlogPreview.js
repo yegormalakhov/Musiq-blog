@@ -1,8 +1,6 @@
-import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { Link } from "react-router-dom";
-import { Typography, Container, Box, Grid } from "@mui/material";
+import { Typography, Grid, Box } from "@mui/material";
 import { Button } from "@mui/material";
-// import { parseISO, formatDistance } from "date-fns";
 import DatePosted from "./DatePosted";
 import { useEffect, useState } from "react";
 import serverURL from "../serverURL.js";
@@ -22,16 +20,6 @@ const BlogPreview = ({ id }) => {
     return <h1>Loading...</h1>;
   }
 
-  // const formatDate = (postDate) => {
-  //   const convertedTimeFromIso = parseISO(postDate, {
-  //     additionalDigits: 1,
-  //   });
-  //   const diff = formatDistance(new Date(convertedTimeFromIso), new Date(), {
-  //     addSuffix: true,
-  //   });
-  //   return diff;
-  // };
-
   return (
     <div>
       <Typography variant="h4">{blogPreview.title}</Typography>
@@ -46,13 +34,8 @@ const BlogPreview = ({ id }) => {
             <Typography variant="overline">{blogPreview.name}, </Typography>
           </Button>
           <span>posted </span>
-          {/* {formatDate(postDate)}  */}
           <DatePosted date={blogPreview.created_at} />
           <div dangerouslySetInnerHTML={{ __html: blogPreview.summary }}></div>
-
-          {/* <Typography variant="body1">
-            {documentToReactComponents(summary)}
-          </Typography> */}
         </Grid>
         <Grid item xs={3} align="center">
           <Box

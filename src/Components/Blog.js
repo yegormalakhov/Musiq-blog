@@ -24,7 +24,6 @@ const Blog = () => {
     return <h1>Loading...</h1>;
   }
 
-  // console.log(`${serverURL}/images/${blogPost.hero_img}`);
   return (
     <div>
       <Paper className="blog" elevation={2}>
